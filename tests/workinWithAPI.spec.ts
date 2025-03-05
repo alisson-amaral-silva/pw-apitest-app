@@ -35,7 +35,7 @@ test('has title', async ({ page }) => {
 });
 
 test('delete article', async ({ page, request }) => {
-  const response = await request.post(
+ await request.post(
     'https://conduit-api.bondaracademy.com/api/users/login',
     {
       data: {
@@ -47,8 +47,6 @@ test('delete article', async ({ page, request }) => {
     },
   );
 
-  const responseBody = await response.json();
-  const accessToken = responseBody.user.token;
   const uuid = crypto.randomUUID();
   const articleResponse = await request.post(
     'https://conduit-api.bondaracademy.com/api/articles',
@@ -60,9 +58,6 @@ test('delete article', async ({ page, request }) => {
           body: 'testy',
           tagList: ['testy'],
         },
-      },
-      headers: {
-        Authorization: `Token ${accessToken}`,
       },
     },
   );
